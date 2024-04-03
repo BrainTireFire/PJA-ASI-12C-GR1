@@ -63,3 +63,6 @@ plt.scatter(y_test,y_pred)
 plt.xlabel('Actual')
 plt.ylabel('Predicted')
 plt.show()
+
+from joblib import dump
+dump(model, '..\models\model.joblib')
