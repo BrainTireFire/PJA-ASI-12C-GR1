@@ -63,3 +63,24 @@ plt.scatter(y_test,y_pred)
 plt.xlabel('Actual')
 plt.ylabel('Predicted')
 plt.show()
+
+
+# import os, os.path
+
+# def safe_open_w(path):
+#     ''' Open "path" for writing, creating any parent directories as needed.
+#     '''
+#     os.makedirs(os.path.dirname(path), exist_ok=True)
+
+# safe_open_w('..\models')
+
+import os
+
+directory = '..\models'
+
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
+
+from joblib import dump
+dump(model, '..\models\model.joblib')
