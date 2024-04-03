@@ -1,4 +1,4 @@
-$envFile = "environments.yml"
+$envFile = "environment.yml"
 
 # Check if the environments.yml file exists
 if (-not (Test-Path $envFile)) {
