@@ -1,5 +1,5 @@
 import pandas as pd
-from modules.preprocessData import preprocess_data
+from modules.preprocess_data import preprocess_data
 
 def clean_data(data_path):
     df = pd.read_csv(data_path)
