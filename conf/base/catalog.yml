@@ -1,0 +1,3 @@
+study_performance:
+  type: pandas.CSVDataset
+  filepath: data/student-study-performance/study_performance.csv
