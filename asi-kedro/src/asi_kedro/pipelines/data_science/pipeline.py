@@ -4,7 +4,7 @@ generated using Kedro 0.19.3
 """
 
 from kedro.pipeline import Pipeline, pipeline, node
-from .nodes import train_model, evaluate_model, split_data
+from .nodes import train_model, evaluate_model, split_data, sendDataToWB
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -26,4 +26,11 @@ def create_pipeline(**kwargs) -> Pipeline:
             inputs=["model", "y_test", "X_test"],
             outputs=["mae", "rmse", "r2_square"],
             name="evaluate_model"
-        )])
+        ),
+        node(
+            func=sendDataToWB,
+            inputs=["mae", "rmse", "r2_square"],
+            name="send_to_Weights_and_Biases",
+            outputs=None
+        )
+        ])

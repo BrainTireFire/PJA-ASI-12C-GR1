@@ -8,6 +8,7 @@ import numpy as np
 from typing import List, Tuple
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import wandb as wb
 
 def split_data(X: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -43,3 +44,11 @@ def plot_scatter(y_test: np.ndarray, y_pred: np.ndarray) -> None:
         plt.show()
     except Exception as e:
         print(f"Error occurred while plotting scatter plot: {str(e)}")
+
+def sendDataToWB(mae: np.ndarray, mse: np.ndarray, rmse: np.ndarray) -> None:
+    wb.init(
+      # Set the project where this run will be logged
+      project="PJA-ASI-12C-GR1", 
+      )
+    wb.log({"mae": mae, "mse": mse, "rmse": rmse})
+    wb.finish()
