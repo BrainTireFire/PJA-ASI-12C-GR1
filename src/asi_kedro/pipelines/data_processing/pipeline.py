@@ -4,7 +4,7 @@ generated using Kedro 0.19.3
 """
 
 from kedro.pipeline import Pipeline, pipeline, node
-from .nodes import separate_dependent_variable, preprocess_data
+from .nodes import separate_dependent_variable, preprocess_data, split_data
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -20,5 +20,11 @@ def create_pipeline(**kwargs) -> Pipeline:
             inputs="X",
             outputs="X_processed",
             name="preprocess_data"
-        )
+        ),
+        node(
+            func=split_data,
+            inputs=["X_processed", "Y", "params:data_split"],
+            outputs=["train_set", "test_set", "validation_set"],
+            name="train_test_split"
+        ),
     ])
