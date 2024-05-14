@@ -5,7 +5,7 @@
 
 studentData:
   type: pandas.CSVDataset
-  filepath: data/01-raw/study_performance.csv
+  filepath: data/01_raw/study_performance.csv
 
 model:
   type: pickle.PickleDataset

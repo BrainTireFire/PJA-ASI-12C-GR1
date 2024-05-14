@@ -8,13 +8,16 @@ from typing import List, Tuple
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import wandb as wb
+import autogluon.core as ag
 
 def train_model(train_set: np.ndarray, params_model) -> Tuple[LinearRegression]:
     try:
         X_train = train_set[:, :-1]
         y_train = train_set[:, -1]
-        model = LinearRegression(fit_intercept=params_model.get("fit_intercept", True))
-        model.fit(X_train, y_train)
+        # model = LinearRegression(fit_intercept=params_model.get("fit_intercept", True))
+        # model.fit(X_train, y_train)
+        task = ag.task.fit(X_train=X_train, y_train=y_train, output_directory=params_model.get("output_directory", "./models"))
+        model = task.fit()
         return model
     except Exception as e:
         print(f"Error occurred while training the model: {str(e)}")
@@ -29,7 +32,8 @@ def evaluate_model(model: LinearRegression, test_set: np.ndarray, params_model) 
         mae = mean_absolute_error(y_test, predicted)
         mse = mean_squared_error(y_test, predicted)
         rmse = np.sqrt(mse)
-        r2_square = r2_score(y_test, predicted)
+        # r2_square = r2_score(y_test, predicted)
+        r2_square = model.score(X_test, y_test)
         return mae, rmse, r2_square
     except Exception as e:
         print(f"Error occurred while evaluating the model: {str(e)}")
