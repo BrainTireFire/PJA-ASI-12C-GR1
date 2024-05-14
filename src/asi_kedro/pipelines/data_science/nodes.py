@@ -9,21 +9,17 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import wandb as wb
 
-def train_model(train_set: np.ndarray, params_model) -> Tuple[LinearRegression]:
+def train_model(X: np.ndarray, y: np.ndarray, params_model) -> LinearRegression:
     try:
-        X_train = train_set[:, :-1]
-        y_train = train_set[:, -1]
         model = LinearRegression(fit_intercept=params_model.get("fit_intercept", True))
-        model.fit(X_train, y_train)
+        model.fit(X, y)
         return model
     except Exception as e:
         print(f"Error occurred while training the model: {str(e)}")
         return None
 
-def evaluate_model(model: LinearRegression, test_set: np.ndarray, params_model) -> Tuple[float, float, float]:
+def evaluate_model(model: LinearRegression, y_test: np.ndarray, X_test: np.ndarray, params_model) -> Tuple[float, float, float]:
     try:
-        X_test = test_set[:, :-1]
-        y_test = test_set[:, -1]
         predicted = model.predict(X_test)
 
         mae = mean_absolute_error(y_test, predicted)
