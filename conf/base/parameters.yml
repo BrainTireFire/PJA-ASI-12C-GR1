@@ -5,6 +5,5 @@ model:
 
 data_split:
   train_size: 0.8
-  test_size: 0.15
-  validation_size: 0.05
+  test_size: 0.2
   random_state: 42
