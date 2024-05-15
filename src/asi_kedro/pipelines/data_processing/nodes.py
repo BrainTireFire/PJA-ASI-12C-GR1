@@ -47,12 +47,9 @@ def preprocess_data(X: pd.DataFrame) -> Any:
         return None
 
 def split_data(X: np.ndarray, y: np.ndarray, params_data_split) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    train_size = params_data_split['train_size']
     test_size = params_data_split['test_size']
-    validation_size = params_data_split['validation_size']
     random_state = params_data_split["random_state"]
+    
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
 
-    train_set, test_set = train_test_split(X, y, test_size=1 - train_size, random_state=random_state)
-    test_set, validation_set = train_test_split(test_set, test_size=test_size + validation_size, random_state=random_state)
-
-    return train_set, test_set, validation_set
+    return X_train, X_test, y_train, y_test
