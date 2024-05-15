@@ -12,7 +12,13 @@ $envName = (Get-Content $envFile | Select-String -Pattern 'name:' | ForEach-Obje
 # Creating an environment from a YAML file
 conda env create -f $envFile
 
+# Conda initialization
+conda init
+
 # Activation of the environment
 conda activate $envName
+
+#pip install autogluon
+#pip install wandb
 
 Write-Host "The environment '$envName' has been successfully created and activated."
