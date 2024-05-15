@@ -16,4 +16,3 @@ auto_ml_config:
   hyperparameters: "multimodal"
   presets: "best_quality"
   time_limit: 3600
-  num_trials: 2
