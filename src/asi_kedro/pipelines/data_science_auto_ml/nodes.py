@@ -30,6 +30,7 @@ def evaluate_model_auto_ml(predictor: TabularPredictor, params_auto_ml) -> Any:
     try:
         train_data = TabularDataset(params_auto_ml.get('file_path', 'data/01_raw/study_performance.csv'))
         results = predictor.evaluate(train_data)
+        print(predictor.leaderboard(train_data, silent=True))
         return results
     except Exception as e:
         print(f"Error occurred while evaluating the model: {str(e)}")

@@ -12,7 +12,7 @@ data_split:
 auto_ml_config:
   output_directory: "models/auto_ml"
   file_path: "data/01_raw/study_performance.csv"
-  label_column: "race_ethnicity"
+  label_column: "math_score"
   hyperparameters: "multimodal"
   presets: "best_quality"
-  time_limit: 3600
+  time_limit: 60
