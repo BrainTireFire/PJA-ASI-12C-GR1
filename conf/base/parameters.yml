@@ -13,6 +13,7 @@ auto_ml_config:
   output_directory: "models/auto_ml"
   file_path: "data/01_raw/study_performance.csv"
   label_column: "math_score"
-  hyperparameters: "multimodal"
+  hyperparameters: "default"
   presets: "best_quality"
   time_limit: 60
+  problem_type: "regression"
