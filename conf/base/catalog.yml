@@ -11,3 +11,15 @@ model:
   type: pickle.PickleDataset
   filepath: data/06_models/model.pkl
   versioned: true
+
+challenger:
+  type: pickle.PickleDataset
+  filepath: data/06_models/challenger.pkl
+
+champion:
+  type: pickle.PickleDataset
+  filepath: data/06_models/champion.pkl
+
+winner:
+  type: pickle.PickleDataset
+  filepath: data/06_models/champion.pkl

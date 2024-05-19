@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from typing import Any
 from autogluon.tabular import TabularPredictor, TabularDataset
+import wandb as wb
 
 def split_data(fullSet: pd.DataFrame, params_data_split) -> Tuple[pd.DataFrame, pd.DataFrame]:
     test_size = params_data_split['test_size']
@@ -45,12 +46,30 @@ def train_model_auto_ml(train_data: pd.DataFrame, validate_data: pd.DataFrame, p
     
 
 
-def evaluate_model_auto_ml(predictor: TabularPredictor, test_data: pd.DataFrame, params_auto_ml) -> Any:
+def evaluate_model_auto_ml(challenger: TabularPredictor, champion: TabularPredictor, test_data: pd.DataFrame, params_auto_ml) -> Tuple[Any, TabularPredictor]:
     try:
-        # test_data = TabularDataset(params_auto_ml.get('file_path', 'data/01_raw/study_performance.csv'))
-        results = predictor.evaluate(test_data)
-        print(predictor.leaderboard(test_data, silent=True))
-        return results
+        winner = {}
+        results_challenger = challenger.evaluate(test_data)
+        results_champion = champion.evaluate(test_data)
+        print(results_challenger)
+        print(results_champion)
+        if(results_challenger['root_mean_squared_error'] > results_champion['root_mean_squared_error']):
+            print('New champion!')
+            winner = challenger
+        else:
+            print('Challenger failed to best the champion')
+            winner = champion
+        # print(predictor.leaderboard(test_data, silent=True))
+        return results_challenger, winner
     except Exception as e:
         print(f"Error occurred while evaluating the model: {str(e)}")
-        return {}
+        return None, None
+    
+
+def sendDataToWB(results_challenger, params_model) -> None:
+    wb.init(
+      # Set the project where this run will be logged
+      project=params_model.get("project_name", "PJA-ASI-12C-GR1"),
+      )
+    wb.log(results_challenger)
+    wb.finish()

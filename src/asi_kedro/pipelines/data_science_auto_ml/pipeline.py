@@ -4,7 +4,7 @@ generated using Kedro 0.19.3
 """
 
 from kedro.pipeline import Pipeline, pipeline, node
-from .nodes import split_data, train_model_auto_ml, evaluate_model_auto_ml
+from .nodes import split_data, train_model_auto_ml, evaluate_model_auto_ml, sendDataToWB
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -13,24 +13,30 @@ def create_pipeline(**kwargs) -> Pipeline:
             func=split_data,
             inputs=["studentData", "params:data_split"],
             outputs=["fullSet_train_validate", "fullSet_test"],
-            name="train_test_split2"
+            name="train_test_split_autoML"
         ),
         node(
             func=split_data,
             inputs=["fullSet_train_validate", "params:data_split"],
             outputs=["fullSet_train", "fullSet_validate"],
-            name="train_validate_split"
+            name="train_validate_split_autoML"
         ),
         node(
             func=train_model_auto_ml,
             inputs=["fullSet_train", "fullSet_validate", "params:auto_ml_config"],
-            outputs="predictor_MR",
-            name="train_model_auto_ml_MR"
+            outputs="challenger",
+            name="train_model_autoML"
         ),
         node(
             func=evaluate_model_auto_ml,
-            inputs=["predictor_MR", "fullSet_test", "params:auto_ml_config"],
-            outputs="results_MR",
-            name="evaluate_model_auto_ml_MR"
+            inputs=["challenger", "champion", "fullSet_test", "params:auto_ml_config"],
+            outputs=["results_challenger", "winner"],
+            name="evaluate_model_autoML"
+        ),
+        node(
+            func=sendDataToWB,
+            inputs=["results_challenger", "params:model_autoML"],
+            name="send_to_Weights_and_Biases_autoML",
+            outputs=None
         )
     ])

@@ -3,6 +3,9 @@ model:
   fit_intercept: True
   project_name: "PJA-ASI-12C-GR1"
 
+model_autoML:
+  project_name: "PJA-ASI-12C-GR1-autoML"
+
 data_split:
   train_size: 0.8
   test_size: 0.15
