@@ -35,7 +35,7 @@ def train_model_auto_ml(train_data: pd.DataFrame, validate_data: pd.DataFrame, p
         time_limit = params_auto_ml.get('time_limit', 3600)
         problem_type = params_auto_ml.get('problem_type', 'regression')
 
-        predictor = TabularPredictor(label=label_column, problem_type=problem_type, path=output_directory)
+        predictor = TabularPredictor(label=label_column, problem_type=problem_type)
         predictor.fit(train_data=train_data, tuning_data=validate_data, hyperparameters=hyperparameters, presets=presets,
                       time_limit=time_limit, use_bag_holdout=True, keep_only_best=True)
         
@@ -48,6 +48,10 @@ def train_model_auto_ml(train_data: pd.DataFrame, validate_data: pd.DataFrame, p
 
 def evaluate_model_auto_ml(challenger: TabularPredictor, champion: TabularPredictor, test_data: pd.DataFrame, params_auto_ml) -> Tuple[Any, TabularPredictor]:
     try:
+        if(challenger is champion):
+            print('ten sam obiekt')
+        print(hash(challenger))
+        print(hash(champion))
         winner = {}
         results_challenger = challenger.evaluate(test_data)
         results_champion = champion.evaluate(test_data)

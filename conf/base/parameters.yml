@@ -18,5 +18,5 @@ auto_ml_config:
   label_column: "math_score"
   hyperparameters: "default"
   presets: "best_quality"
-  time_limit: 60
+  time_limit: 1
   problem_type: "regression"
