@@ -20,3 +20,5 @@ auto_ml_config:
   presets: "best_quality"
   time_limit: 1
   problem_type: "regression"
+
+automl: False

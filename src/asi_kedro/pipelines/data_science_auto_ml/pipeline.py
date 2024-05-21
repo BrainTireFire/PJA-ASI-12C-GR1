@@ -4,7 +4,7 @@ generated using Kedro 0.19.3
 """
 
 from kedro.pipeline import Pipeline, pipeline, node
-from .nodes import split_data, train_model_auto_ml, evaluate_model_auto_ml, sendDataToWB
+from .nodes import split_data, train_model_auto_ml, sendDataToWB
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -26,12 +26,6 @@ def create_pipeline(**kwargs) -> Pipeline:
             inputs=["fullSet_train", "fullSet_validate", "params:auto_ml_config"],
             outputs="challenger",
             name="train_model_autoML"
-        ),
-        node(
-            func=evaluate_model_auto_ml,
-            inputs=["challenger", "champion", "fullSet_test", "params:auto_ml_config"],
-            outputs=["results_challenger", "winner"],
-            name="evaluate_model_autoML"
         ),
         node(
             func=sendDataToWB,
