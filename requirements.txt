@@ -2,4 +2,10 @@ ipython>=8.10
 jupyterlab>=3.0
 kedro~=0.19.3
 kedro-telemetry>=0.3.1
+pandas
 notebook
+scikit-learn
+wandb
+autogluon
+matplotlib
+numpy
