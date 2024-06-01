@@ -5,6 +5,7 @@ from kedro.framework.project import find_pipelines
 from kedro.pipeline import Pipeline
 from kedro.config import OmegaConfigLoader
 from kedro.framework.project import settings
+from pathlib import Path
 
 def register_pipelines() -> dict[str, Pipeline]:
     """Register the project's pipelines.
@@ -12,11 +13,11 @@ def register_pipelines() -> dict[str, Pipeline]:
     Returns:
         A mapping from pipeline names to ``Pipeline`` objects.
     """
-
-    # conf_path = str(project_path / settings.CONF_SOURCE)
-    # conf_loader = OmegaConfigLoader(conf_source=conf_path)
-    # automl_enabled = conf_loader["automl"]
-    automl_enabled = True
+    project_path = Path(__file__).resolve().parent.parent.parent
+    conf_path = str(project_path / settings.CONF_SOURCE)
+    conf_loader = OmegaConfigLoader(conf_source=conf_path)
+    parameters = conf_loader["parameters"]
+    automl_enabled = parameters["automl"]
 
     # Find and register pipelines
     pipelines = find_pipelines()
