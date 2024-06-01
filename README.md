@@ -19,6 +19,9 @@ Wersja projektu przygotowana jako pipeline kedro została umieszczona w osobnym 
 Przy pierwszym uruchomieniu projektu użytkownik zostanie poproszony o klucz autoryzacyjny do swojego konta w portalu Weights&Biases
 Aby wygenerować wizualizację pipeline'u należy w tym samym katalogu uruchomić polecenie "kedro viz run"
 
+### Docker
+Aby uruchomic: kedro docker run
+Aby zbudowac projekt: kedro docker build --base-image python:3.10.14
 
 # ASI_KEDRO
 
