@@ -1,10 +1,12 @@
-ARG BASE_IMAGE=python:3.10-slim
+ARG BASE_IMAGE=python:3.10.14
 FROM $BASE_IMAGE as runtime-environment
+
+RUN apt-get update && apt-get install -y build-essential
 
 # install project requirements
 COPY requirements.txt /tmp/requirements.txt
-RUN python -m pip install -U "pip>=21.2,<23.2"
-RUN pip install --no-cache-dir -r /tmp/requirements.txt && rm -f /tmp/requirements.txt
+RUN pip install --no-cache -r /tmp/requirements.txt && rm -f /tmp/requirements.txt
+RUN pip install autogluon --no-cache
 
 # add kedro user
 ARG KEDRO_UID=999

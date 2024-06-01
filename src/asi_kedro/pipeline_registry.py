@@ -16,7 +16,7 @@ def register_pipelines() -> dict[str, Pipeline]:
     # conf_path = str(project_path / settings.CONF_SOURCE)
     # conf_loader = OmegaConfigLoader(conf_source=conf_path)
     # automl_enabled = conf_loader["automl"]
-    automl_enabled = False
+    automl_enabled = True
 
     # Find and register pipelines
     pipelines = find_pipelines()
