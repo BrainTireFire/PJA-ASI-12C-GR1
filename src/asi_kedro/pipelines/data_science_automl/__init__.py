@@ -1,5 +1,5 @@
 """
-This is a boilerplate pipeline 'data_deployment'
+This is a boilerplate pipeline 'data_science_2'
 generated using Kedro 0.19.3
 """
 

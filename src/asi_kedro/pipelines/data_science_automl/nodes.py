@@ -1,33 +1,24 @@
 """
-This is a boilerplate pipeline 'explicit_or_autogluon'
+This is a boilerplate pipeline 'data_science_2'
 generated using Kedro 0.19.3
-
 """
 
-import pandas as pd
-import numpy as np
 from typing import Tuple
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+import numpy as np
+import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.compose import ColumnTransformer
-from typing import Any
 from autogluon.tabular import TabularPredictor, TabularDataset
 import wandb as wb
 
-def split_data(fullSet: pd.DataFrame, params_data_split) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    test_size = params_data_split['test_size']
-    random_state = params_data_split["random_state"]
-    
-    fullSet_train, fullSet_test = train_test_split(fullSet, test_size=test_size, random_state=random_state)
-
-    return fullSet_train, fullSet_test
 
 
-def train_model_auto_ml(train_data: pd.DataFrame, validate_data: pd.DataFrame, params_auto_ml) -> TabularPredictor:
+
+def train_model_auto_ml(train_data: pd.DataFrame, params_auto_ml) -> TabularPredictor:
     try:
+        print('train_model_auto_ml')
+        print(isinstance(train_data, pd.DataFrame))
         # train_data = TabularDataset(params_auto_ml.get('file_path', 'data/01_raw/study_performance.csv'))
         label_column = params_auto_ml.get('label_column', 'math_score')
-        output_directory = params_auto_ml.get('output_directory', 'models/auto_ml')
 
         # Additional parameters
         hyperparameters = params_auto_ml.get('hyperparameters', 'default')
@@ -35,19 +26,25 @@ def train_model_auto_ml(train_data: pd.DataFrame, validate_data: pd.DataFrame, p
         time_limit = params_auto_ml.get('time_limit', 3600)
         problem_type = params_auto_ml.get('problem_type', 'regression')
 
+        train_data = TabularDataset(train_data)
+
         predictor = TabularPredictor(label=label_column, problem_type=problem_type)
-        predictor.fit(train_data=train_data, tuning_data=validate_data, hyperparameters=hyperparameters, presets=presets,
-                      time_limit=time_limit, use_bag_holdout=True, keep_only_best=True)
+        predictor.fit(train_data=train_data, hyperparameters=hyperparameters, presets=presets,
+                      time_limit=time_limit, keep_only_best=True)
         
         return predictor
     except Exception as e:
         print(f"Error occurred while training the model: {str(e)}")
-        return None    
-
+        return None
+    
+def evaluate(challenger: TabularPredictor, test_data: pd.DataFrame):
+    r2 = -challenger.evaluate(test_data)['root_mean_squared_error']
+    return r2
+    
 def sendDataToWB(results_challenger, params_model) -> None:
     wb.init(
       # Set the project where this run will be logged
       project=params_model.get("project_name", "PJA-ASI-12C-GR1"),
       )
-    wb.log(results_challenger)
+    wb.log({'r2': results_challenger})
     wb.finish()
