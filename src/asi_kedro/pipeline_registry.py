@@ -29,6 +29,7 @@ def register_pipelines() -> dict[str, Pipeline]:
     ds_champion_challenger_pipeline = ds_champion_challenger.create_pipeline()
 
     return {
+        "__default__": data_processing_pipeline + data_science_LinReg_pipeline + ds_champion_challenger_pipeline,
         "automl": data_processing_pipeline + data_science_automl_pipeline + ds_champion_challenger_pipeline,
         "LinReg": data_processing_pipeline + data_science_LinReg_pipeline + ds_champion_challenger_pipeline,
     }

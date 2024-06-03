@@ -37,8 +37,8 @@ def train_model_auto_ml(train_data: pd.DataFrame, params_auto_ml) -> TabularPred
         print(f"Error occurred while training the model: {str(e)}")
         return None
     
-def evaluate(challenger: TabularPredictor, test_data: pd.DataFrame):
-    r2 = -challenger.evaluate(test_data)['root_mean_squared_error']
+def evaluate(challenger: TabularPredictor, data_test: pd.DataFrame):
+    r2 = -challenger.evaluate(data_test)['root_mean_squared_error']
     return r2
     
 def sendDataToWB(results_challenger, params_model) -> None:

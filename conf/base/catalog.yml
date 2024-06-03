@@ -7,11 +7,6 @@ studentData:
   type: pandas.CSVDataset
   filepath: data/01_raw/study_performance.csv
 
-model:
-  type: pickle.PickleDataset
-  filepath: data/06_models/model.pkl
-  versioned: true
-
 challenger:
   type: pickle.PickleDataset
   filepath: data/06_models/challenger.pkl
