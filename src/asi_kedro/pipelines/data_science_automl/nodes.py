@@ -28,7 +28,7 @@ def train_model_auto_ml(train_data: pd.DataFrame, params_auto_ml) -> TabularPred
 
         train_data = TabularDataset(train_data)
 
-        predictor = TabularPredictor(label=label_column, problem_type=problem_type)
+        predictor = TabularPredictor(label=label_column, problem_type=problem_type, path="data/06_models/challenger")
         predictor.fit(train_data=train_data, hyperparameters=hyperparameters, presets=presets,
                       time_limit=time_limit, keep_only_best=True)
         
@@ -42,6 +42,7 @@ def evaluate(challenger: TabularPredictor, data_test: pd.DataFrame):
     return r2
     
 def sendDataToWB(results_challenger, params_model) -> None:
+    wb.login(key="6677f668e127b3ddf8f0322696ed29f50bc3ce2e")
     wb.init(
       # Set the project where this run will be logged
       project=params_model.get("project_name", "PJA-ASI-12C-GR1"),

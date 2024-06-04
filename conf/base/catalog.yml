@@ -6,15 +6,14 @@
 studentData:
   type: pandas.CSVDataset
   filepath: data/01_raw/study_performance.csv
+# challenger:
+#   type: pickle.PickleDataset
+#   filepath: data/06_models/challenger.pkl
 
-challenger:
-  type: pickle.PickleDataset
-  filepath: data/06_models/challenger.pkl
+# champion:
+#   type: pickle.PickleDataset
+#   filepath: data/06_models/champion.pkl
 
-champion:
-  type: pickle.PickleDataset
-  filepath: data/06_models/champion.pkl
-
-winner:
-  type: pickle.PickleDataset
-  filepath: data/06_models/champion.pkl
+# winner:
+#   type: pickle.PickleDataset
+#   filepath: data/06_models/champion.pkl

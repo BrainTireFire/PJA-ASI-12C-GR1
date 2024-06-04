@@ -563,5 +563,7 @@ venv.bak/
 wandb
 
 
-data/
+data/*
+!data/01_raw
 models/
+.netrc

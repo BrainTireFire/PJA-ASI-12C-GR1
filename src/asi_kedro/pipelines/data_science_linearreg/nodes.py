@@ -37,6 +37,7 @@ def evaluate_model(model: LinearRegression, data_test: pd.DataFrame, params_mode
         return None
     
 def sendDataToWB(r2_square, params_model) -> None:
+    wb.login(key="6677f668e127b3ddf8f0322696ed29f50bc3ce2e")
     wb.init(
       # Set the project where this run will be logged
       project=params_model.get("project_name", "PJA-ASI-12C-GR1"),
