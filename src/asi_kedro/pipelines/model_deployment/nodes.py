@@ -4,6 +4,7 @@ generated using Kedro 0.19.3
 """
 import os, shutil
 import pickle
+from types import NoneType
 import pandas as pd
 from typing import Tuple, Union
 from typing import Any
@@ -23,10 +24,15 @@ from sklearn.metrics import r2_score
 
 def load_champion_model() -> Union[TabularPredictor, LinearRegression, str]:
     models_path = "data//06_models//champion"
-    champion_model_path = os.path.join(models_path, "predictor.pkl")
-    if os.path.isfile(champion_model_path):
-        predictor = TabularPredictor.load("data/06_models/champion")
-        return predictor
+    predictor_path = os.path.join(models_path, "predictor.pkl")
+    raw_path = os.path.join(models_path, "model.pkl")
+    if os.path.isfile(predictor_path):
+        champion_predictor = TabularPredictor.load("data/06_models/champion")
+        return champion_predictor
+    elif os.path.isfile(raw_path):
+        with open(raw_path, 'rb') as file:
+            champion_model = pickle.load(file)
+            return champion_model
     else:
         return ""
 
@@ -34,10 +40,16 @@ def delete_defeated_champion():
     folder = "data//06_models//champion"
     if os.path.exists("data//06_models//champion"):
         shutil.rmtree(folder)
+def delete_challenger():
+    folder = "data//06_models//challenger"
+    if os.path.exists("data//06_models//challenger"):
+        shutil.rmtree(folder)
 
 def turn_challenger_into_champion(challenger):
-    # shutil.move("data//06_models//challenger", "data//06_models//champion") 
-    challenger.clone("data//06_models//champion")
+    if isinstance(challenger, TabularPredictor):
+        challenger.clone("data//06_models//champion")
+    if isinstance(challenger, LinearRegression):
+        shutil.copytree("data//06_models//challenger", "data//06_models//champion") 
 
 def evaluate_model(challenger: TabularPredictor | LinearRegression, champion: TabularPredictor | LinearRegression, data_test: pd.DataFrame, params_auto_ml) -> Tuple[TabularPredictor | LinearRegression]:
     # try:
@@ -84,6 +96,7 @@ def evaluate_model(challenger: TabularPredictor | LinearRegression, champion: Ta
             delete_defeated_champion()
             turn_challenger_into_champion(challenger)
 
+        delete_challenger()
         return winner
 
     # except Exception as e:
