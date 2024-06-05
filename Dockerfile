@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=python:3.10.14
+ARG BASE_IMAGE=python:3.10-slim
 FROM $BASE_IMAGE as runtime-environment
 
 RUN apt-get update && apt-get install -y build-essential
