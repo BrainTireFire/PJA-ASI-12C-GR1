@@ -1,1 +1,1 @@
-{"studentData": {"rows": 1000, "columns": 8, "file_size": 72036}, "X": {"rows": 1000, "columns": 7}}
+{"studentData": {"rows": 1000, "columns": 8, "file_size": 72036}, "studentData_preprocessed": {"rows": 1000, "columns": 8}, "data_train": {"rows": 850, "columns": 8}, "data_test": {"rows": 150, "columns": 8}}

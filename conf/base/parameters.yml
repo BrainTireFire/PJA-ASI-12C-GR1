@@ -3,7 +3,21 @@ model:
   fit_intercept: True
   project_name: "PJA-ASI-12C-GR1"
 
+model_autoML:
+  project_name: "PJA-ASI-12C-GR1-autoML"
+
 data_split:
   train_size: 0.8
   test_size: 0.2
   random_state: 42
+
+auto_ml_config:
+  output_directory: "models/auto_ml"
+  file_path: "data/01_raw/study_performance.csv"
+  label_column: "math_score"
+  hyperparameters: "default"
+  presets: "best_quality"
+  time_limit: 30
+  problem_type: "regression"
+
+automl: False
