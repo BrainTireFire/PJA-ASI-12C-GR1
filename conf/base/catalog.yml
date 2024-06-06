@@ -9,6 +9,12 @@ studentData:
 challenger:
   type: pickle.PickleDataset
   filepath: data/06_models/challenger/model.pkl
+numeric_transformer:
+  type: pickle.PickleDataset
+  filepath: data/06_models/challenger/numeric_transformer.pkl
+label_encoders:
+  type: pickle.PickleDataset
+  filepath: data/06_models/challenger/label_encoders.pkl
 # champion:
 #   type: pickle.PickleDataset
 #   filepath: data/06_models/champion.pkl
