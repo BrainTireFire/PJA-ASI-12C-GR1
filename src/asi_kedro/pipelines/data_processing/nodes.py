@@ -37,7 +37,7 @@ def preprocess_data(dataset: pd.DataFrame) -> pd.DataFrame:
         dataset_processed = pd.concat([scaled_dataset, encoded_dataset], axis=1)
         
         print(dataset_processed)   
-        return dataset_processed
+        return dataset_processed, numeric_transformer, label_encoders
     
     except Exception as e:
         print(f"Error occurred while preprocessing the data: {str(e)}")

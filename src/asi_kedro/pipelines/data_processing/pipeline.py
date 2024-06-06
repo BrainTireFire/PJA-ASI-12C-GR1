@@ -12,7 +12,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         node(
             func=preprocess_data,
             inputs="studentData",
-            outputs="studentData_preprocessed",
+            outputs=["studentData_preprocessed", "numeric_transformer", "label_encoders"],
             name="preprocess_data"
         ),
         node(
