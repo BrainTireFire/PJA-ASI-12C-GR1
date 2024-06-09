@@ -43,7 +43,6 @@ def evaluate(challenger: TabularPredictor, data_test: pd.DataFrame):
     
 def sendDataToWB(results_challenger, params_model) -> None:
     key = params_model.get("wbKey");
-    print(key)
     if key != "notprovided":
         wb.login(key=params_model.get("wbKey"))
         wb.init(

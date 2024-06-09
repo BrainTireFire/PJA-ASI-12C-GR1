@@ -48,7 +48,6 @@ def evaluate_model(model: LinearRegression, data_test: pd.DataFrame, params_mode
     
 def sendDataToWB(results_challenger, params_model) -> None:
     key = params_model.get("wbKey");
-    print(key)
     if key != "notprovided":
         wb.login(key=params_model.get("wbKey"))
         wb.init(
