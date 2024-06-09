@@ -36,11 +36,25 @@ def evaluate_model(model: LinearRegression, data_test: pd.DataFrame, params_mode
         print(f"Error occurred while evaluating the model: {str(e)}")
         return None
     
-def sendDataToWB(r2_square, params_model) -> None:
-    wb.login(key="6677f668e127b3ddf8f0322696ed29f50bc3ce2e")
-    wb.init(
-      # Set the project where this run will be logged
-      project=params_model.get("project_name", "PJA-ASI-12C-GR1"),
-      )
-    wb.log({"r2": r2_square})
-    wb.finish()
+# def sendDataToWB(r2_square, params_model) -> None:
+#     wb.login(key="6677f668e127b3ddf8f0322696ed29f50bc3ce2e")
+#     wb.init(
+#       # Set the project where this run will be logged
+#       project=params_model.get("project_name", "PJA-ASI-12C-GR1"),
+#       )
+#     wb.log({"r2": r2_square})
+#     wb.finish()
+
+    
+def sendDataToWB(results_challenger, params_model) -> None:
+    key = params_model.get("wbKey");
+    if key != "notprovided":
+        wb.login(key=params_model.get("wbKey"))
+        wb.init(
+        # Set the project where this run will be logged
+        project=params_model.get("project_name", "PJA-ASI-12C-GR1"),
+        )
+        wb.log({'r2': results_challenger})
+        wb.finish()
+    else:
+        print("No Weights&Biases key provided")
