@@ -23,7 +23,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         ),
         node(
             func=sendDataToWB,
-            inputs=["results_challenger", "params:model_autoML"],
+            inputs=["results_challenger", "params:model"],
             outputs=None,
             name="sendDataToWB"
         ),

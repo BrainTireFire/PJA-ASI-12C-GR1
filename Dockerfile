@@ -27,6 +27,7 @@ COPY --chown=${KEDRO_UID}:${KEDRO_GID} . .
 EXPOSE 8888
 
 ENV pipeline=automl
+ENV wbKey=notprovided
 
-CMD kedro run --pipeline ${pipeline}
+CMD kedro run --pipeline ${pipeline} --params wbKey=${wbKey}
 # CMD ["kedro", "run", "--pipeline", "automl"]

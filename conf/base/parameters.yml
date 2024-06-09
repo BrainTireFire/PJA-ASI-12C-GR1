@@ -2,9 +2,7 @@ model:
   type: LinearRegression
   fit_intercept: True
   project_name: "PJA-ASI-12C-GR1"
-
-model_autoML:
-  project_name: "PJA-ASI-12C-GR1-autoML"
+  wbKey: "${runtime_params:wbKey, 'notprovided'}"
 
 data_split:
   train_size: 0.8
