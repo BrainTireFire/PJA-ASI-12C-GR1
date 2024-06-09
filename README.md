@@ -25,7 +25,7 @@ Wersja projektu przygotowana jako pipeline kedro została umieszczona w osobnym 
 
 ### Docker
 
-Aby uruchomic: kedro docker run -v .:/home/kedro_docker pja-asi-12c-gr1
+Aby uruchomic: docker run -v .:/home/kedro_docker -e pipeline={nazwa pipeline'u} pja-asi-12c-gr1
 Aby zbudowac projekt: kedro docker build
 
 # ASI_KEDRO

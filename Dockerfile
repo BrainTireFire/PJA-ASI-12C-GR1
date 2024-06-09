@@ -26,4 +26,7 @@ COPY --chown=${KEDRO_UID}:${KEDRO_GID} . .
 
 EXPOSE 8888
 
-CMD ["kedro", "run", "--pipeline", "automl"]
+ENV pipeline=automl
+
+CMD kedro run --pipeline ${pipeline}
+# CMD ["kedro", "run", "--pipeline", "automl"]
