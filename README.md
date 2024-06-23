@@ -2,32 +2,36 @@
 
 ## Getting started
 
-### Tworzenie środowiska miniconda
+### Creating a Miniconda Environment
 
-1. Pobrać miniconda z oficjalnej strony.
-2. Uruchomić w Anaconda PowerShell Prompt skrypt create_env_conda.ps1 (wpisując ./create_env_conda.ps1, kiedy znajdujesz się w katalogu src/config).
-   Przed uruchomieniem upewnij się czy plik environments.yml istnieje. W tym pliku znajdują się dane potrzebne do zainstalowania wymaganych pakietów w środowisku.
+1. Download Miniconda from the official website.
+2. Run the Script in Anaconda PowerShell Prompt: Navigate to the src/config directory.
+   Ensure that the environments.yml file exists, as it contains the necessary data for installing required packages in the environment.
+   Execute the script by entering ./create_env_conda.ps1.
 
-### Wykonanie głownego skryptu main.py (1 wersja projektu)
+### Running the Main Script (main.py)
 
-1. Aby utworzyć, wytrenować, przygotować i zapisać model należy urchomić skrypt main.py
-2. main.py uruchamia pomniejsze moduły, które są w foldrze "modules".
-3. Pomniejsze moduly sa odpowiedzialne za tworzenie, ewaluacje modelu, pobieranie datasetu itp.
+1. To create, train, prepare, and save the model, run the main.py script.
+2. main.py triggers smaller modules located in the "modules" folder.
+3. These smaller modules are responsible for tasks like creating and evaluating the model, fetching datasets, etc.
 
-### Uruchomienie kedro (2 wersja projektu)
+### Running Kedro (Version 2 of the Project)
 
-Wersja projektu przygotowana jako pipeline kedro została umieszczona w osobnym folderze. Aby ją uruchomięc należy wykonać wszystkie kroki z sekcji "Tworzenie środowiska minicona", a następnie:
+This project version, prepared as a Kedro pipeline, is placed in a separate folder. Follow these steps:
 
-1. Przejść do folderu "asi-kedro" znajdującego się w głównym katalogu repozytorium
-2. Wywołać komendę "kedro run"
-   Przy pierwszym uruchomieniu projektu użytkownik zostanie poproszony o klucz autoryzacyjny do swojego konta w portalu Weights&Biases
-   Aby wygenerować wizualizację pipeline'u należy w tym samym katalogu uruchomić polecenie "kedro viz run"
+1. Complete all steps from the "Creating a Miniconda Environment" section.
+2. Navigate to the asi-kedro folder located in the root directory of the repository.
+3. Execute the command kedro run. The first time you run the project, you will be prompted for an authorization key for your Weights & Biases account.
+   To generate a visualization of the pipeline, run the command kedro viz run in the same directory.
 
 ### Docker
 
-Aby uruchomic: docker run -v .:/home/kedro_docker -e pipeline={nazwa pipeline'u} -e wbKey={twój klucz Weights&Biases} pja-asi-12c-gr1
+To Run:
 
-Aby zbudowac projekt: kedro docker build
+Execute docker run -v .:/home/kedro_docker -e pipeline={pipeline name} -e wbKey={your Weights & Biases key} pja-asi-12c-gr1.
+To Build the Project:
+
+Execute kedro docker build.
 
 # ASI_KEDRO
 
